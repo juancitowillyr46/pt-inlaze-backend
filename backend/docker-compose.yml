@@ -1,0 +1,56 @@
+version: '1'
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - TCP_PORT=3000
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=db_cocktails
+    depends_on:
+      - microservice-users
+      - microservice-cocktails
+  microservice-users:
+    build:
+      context: ./microservice-users
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3000'
+    environment:
+      - TCP_PORT=3001
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=db_cocktails
+  microservice-cocktails:
+    build:
+      context: ./microservice-cocktails
+      dockerfile: Dockerfile
+    ports:
+      - '3002:3000'
+    depends_on:
+      - microservice-users
+    environment:
+      - TCP_PORT=3002
+      - DATABASE_HOST=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USERNAME=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_NAME=db_cocktails
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db_cocktails
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
