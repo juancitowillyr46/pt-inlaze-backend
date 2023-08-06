@@ -8,9 +8,13 @@ import { USER_REPOSITORY } from './domain/repositories/user.repository.interface
 import { RoleEntity } from './domain/entities/role.entity';
 import { ROLE_REPOSITORY } from './domain/repositories/role.repository.interface';
 import { RoleRepositoryImpl } from './infrastructure/persistence/repositories/role.repository.impl';
+import { BcryptModule } from 'src/infraestructure/services/bycript/bycript.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, RoleEntity])],
+  imports: [
+    TypeOrmModule.forFeature([UserEntity, RoleEntity]),
+    BcryptModule
+  ],
   controllers: [UserController],
   providers: [
     {
