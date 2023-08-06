@@ -21,11 +21,21 @@ export class UserRepositoryImpl extends BaseRepository<UserEntity, UserModel> im
         super()
     }
 
+    async readByUsername(email: string): Promise<UserModel> {
+
+        const commmand = await this.userRepository.findOne({
+            where: { email : email }
+        });
+
+        return commmand;
+    }
+
     async createUser(userModel: UserModel): Promise<UserModel> {
 
         const roleModel = await this.roleRepository.findOne({
             where: { id: 1 }
         });
+
         userModel.role = roleModel;
         
         const entity = this.toEntity(userModel);

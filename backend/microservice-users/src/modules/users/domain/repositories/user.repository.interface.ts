@@ -9,5 +9,5 @@ export interface UserRepository {
     toModel(data: UserEntity): UserModel;
     toEntity(data: UserModel): UserEntity;
     convertDtoToEntity(data: UserCreateDto): UserModel;
-    //readBy
+    readByUsername(email: string): Promise<UserModel>;
 }
