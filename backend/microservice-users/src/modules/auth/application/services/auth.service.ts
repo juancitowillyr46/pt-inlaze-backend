@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@nestjs/common";
 
 import { BcryptService } from "src/infraestructure/services/bycript/bcrypt.service";
-import { USER_REPOSITORY, UserRepository } from "src/modules/users/domain/repositories/user.repository.interface";
+import { USER_REPOSITORY, UserRepository } from "src/modules/users/domain/user.repository.interface";
 import { AuthModel } from "../../domain/models/auth.model";
 import { ExceptionsService } from "src/infraestructure/exceptions/exceptions.service";
 import { EnvironmentConfigService } from "src/infraestructure/config/environment-config/environment-config.service";

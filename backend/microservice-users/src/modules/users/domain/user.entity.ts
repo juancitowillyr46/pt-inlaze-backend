@@ -1,6 +1,6 @@
 
 import { Column, Entity, JoinColumn, OneToOne } from "typeorm";
-import { RoleEntity } from "./role.entity";
+import { RoleEntity } from "../../roles/domain/role.entity";
 import { AuditableEntity } from "src/common/entitites/auditable.entity";
 
 @Entity({name: 'users'})

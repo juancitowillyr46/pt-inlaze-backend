@@ -1,19 +1,21 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './infrastructure/controllers/user.controller';
+import { UserController } from './infrastructure/user.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './domain/entities/user.entity';
-import { UserRepositoryImpl } from './infrastructure/persistence/repositories/user.repository.impl';
-import { UserService } from './application/services/user.service';
-import { USER_REPOSITORY } from './domain/repositories/user.repository.interface';
-import { RoleEntity } from './domain/entities/role.entity';
-import { ROLE_REPOSITORY } from './domain/repositories/role.repository.interface';
-import { RoleRepositoryImpl } from './infrastructure/persistence/repositories/role.repository.impl';
+import { UserEntity } from './domain/user.entity';
+import { UserRepositoryImpl } from './infrastructure/user.repository.impl';
+import { UserService } from './application/user.service';
+import { USER_REPOSITORY } from './domain/user.repository.interface';
+import { RoleEntity } from '../roles/domain/role.entity';
+import { ROLE_REPOSITORY } from '../roles/domain/role.repository.interface';
+import { RoleRepositoryImpl } from '../roles/infrastructure/role.repository.impl';
 import { BcryptModule } from 'src/infraestructure/services/bycript/bycript.module';
+import { ExceptionsModule } from 'src/infraestructure/exceptions/exceptions.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserEntity, RoleEntity]),
-    BcryptModule
+    BcryptModule,
+    ExceptionsModule
   ],
   controllers: [UserController],
   providers: [
