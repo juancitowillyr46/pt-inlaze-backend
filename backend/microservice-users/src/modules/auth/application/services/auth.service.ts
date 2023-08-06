@@ -4,6 +4,8 @@ import { BcryptService } from "src/infraestructure/services/bycript/bcrypt.servi
 import { USER_REPOSITORY, UserRepository } from "src/modules/users/domain/repositories/user.repository.interface";
 import { AuthModel } from "../../domain/models/auth.model";
 import { ExceptionsService } from "src/infraestructure/exceptions/exceptions.service";
+import { EnvironmentConfigService } from "src/infraestructure/config/environment-config/environment-config.service";
+import { JwtTokenService } from "src/infraestructure/services/jwt/jwt.service";
 
 @Injectable()
 export class AuthService {
@@ -12,7 +14,9 @@ export class AuthService {
         @Inject(USER_REPOSITORY)
         private readonly userRepository: UserRepository,
         private readonly bcryptService: BcryptService,
-        private readonly exceptionsService: ExceptionsService
+        private readonly exceptionsService: ExceptionsService,
+        private readonly jwtTokenService: JwtTokenService,
+        private readonly environmentConfigService: EnvironmentConfigService
     ) {
 
     }
@@ -36,7 +40,15 @@ export class AuthService {
         }
 
         const model = new AuthModel();
-        model.token = 'generando token';
+
+        const secret = this.environmentConfigService.getJwtSecret();
+        const expirationTime = this.environmentConfigService.getJwtExpirationTime();
+
+        model.token = this.jwtTokenService.createToken({
+            id: command.id,
+            username: command.email
+        },secret, expirationTime);
+
         model.fullname = command.fullname;
 
         return model;
