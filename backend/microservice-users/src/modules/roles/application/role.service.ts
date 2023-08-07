@@ -35,8 +35,8 @@ export class RoleService {
         return operation;
     }
 
-    async readAll(): Promise<RoleModel[]> {
-        const operation = await this.roleRepository.readAll();
+    async readAllRoles(): Promise<RoleModel[]> {
+        const operation = await this.roleRepository.readAllRoles();
         return operation;
     }
 

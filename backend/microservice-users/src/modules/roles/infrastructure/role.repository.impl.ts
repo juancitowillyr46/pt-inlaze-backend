@@ -31,20 +31,20 @@ export class RoleRepositoryImpl extends BaseRepository<RoleEntity, RoleModel> im
             const entity = this.toEntity(roleModel);
             const commandUpd = await this.roleRepository.update({
                 id: roleId
-            }, roleModel);
+            }, entity);
             commandFind = (commandUpd.affected > 0);
         }
         
         return commandFind;
     }
 
-    async deleteRole(userId: number): Promise<boolean> {
+    async deleteRole(roleId: number): Promise<boolean> {
 
-        let commandFind = await this.findRoleById(userId);
+        let commandFind = await this.findRoleById(roleId);
 
         if(commandFind) {
             const commandUpd = await this.roleRepository.update({
-                id: userId
+                id: roleId
             }, {
                 isDeleted : true,
                 updatedAt: new Date()
@@ -62,14 +62,14 @@ export class RoleRepositoryImpl extends BaseRepository<RoleEntity, RoleModel> im
         return this.toModel(commmandFind);
     }
 
-    async findRoleById(userId: number): Promise<boolean>  {
+    async findRoleById(roleId: number): Promise<boolean>  {
         const commmandFind = await this.roleRepository.findOne({
-            where: { id : userId }
+            where: { id : roleId }
         });
         return (commmandFind)? true : false;
     }
 
-    async readAll(): Promise<RoleModel[]> {
+    async readAllRoles(): Promise<RoleModel[]> {
 
         let roles: RoleEntity[] = await this.roleRepository.findBy({
             isDeleted: false
@@ -96,6 +96,7 @@ export class RoleRepositoryImpl extends BaseRepository<RoleEntity, RoleModel> im
         entity.name = data.name;
         entity.createdAt = new Date();
         entity.updatedAt = null;
+        entity.isDeleted = false;
         return entity;
     }
 

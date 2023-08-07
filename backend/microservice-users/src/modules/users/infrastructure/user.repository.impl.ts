@@ -90,6 +90,7 @@ export class UserRepositoryImpl extends BaseRepository<UserEntity, UserModel> im
         entity.phone = userModel.phone;
         entity.createdAt = new Date();
         entity.updatedAt = null;
+        entity.isDeleted = false;
         entity.role = userModel.role;
         return entity;
     }

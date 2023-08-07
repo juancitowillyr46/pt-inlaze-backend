@@ -16,7 +16,7 @@ export class RoleController {
     @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Create' })
-    @ApiTags('roles')
+    @ApiTags('Roles')
     @Post()
     async createrole(@Body(new JoiValidationPipe(roleSchema)) roleCreateDto: RoleDto): Promise<RolePresenter> {
         const result = await this.roleService.createRole(roleCreateDto);
@@ -27,7 +27,7 @@ export class RoleController {
     @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Update '})
-    @ApiTags('roles')
+    @ApiTags('Roles')
     @Put(':id')
     async updaterole(@Param('id') roleId: number, @Body(new JoiValidationPipe(roleSchema)) roleUpdateDto: RoleDto): Promise<RolePresenter> {
         const result = await this.roleService.updateRole(Number(roleId), roleUpdateDto);
@@ -38,7 +38,7 @@ export class RoleController {
     @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Delete'})
-    @ApiTags('roles')
+    @ApiTags('Roles')
     @Delete(':id')
     async deleterole(@Param('id') roleId: number): Promise<RolePresenter> {
         const result = await this.roleService.deleteRole(Number(roleId));
@@ -49,10 +49,10 @@ export class RoleController {
     @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Roles All'})
-    @ApiTags('roles')
+    @ApiTags('Roles')
     @Get()
-    async readAll(): Promise<RolePresenter> {
-        const result = await this.roleService.readAll();
+    async readAllRoles(): Promise<RolePresenter> {
+        const result = await this.roleService.readAllRoles();
         return new RolePresenter(`Role: listado correctamente`, result);
     }
 
@@ -60,7 +60,7 @@ export class RoleController {
     @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Roles By Id'})
-    @ApiTags('roles')
+    @ApiTags('Roles')
     @Get(':id')
     async readById(@Param('id') roleId: number): Promise<RolePresenter> {
         const result = await this.roleService.readRoleById(roleId);

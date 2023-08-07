@@ -18,6 +18,6 @@ export class AuthController {
     @UsePipes(new JoiValidationPipe(authSchema))
     async createUser(@Body() authDto: AuthDto): Promise<AuthPresenter> {
         const result = await this.authService.auth(authDto.username, authDto.password);
-        return new AuthPresenter(`Auth: Inicio sesión correctamente`, result);
+        return new AuthPresenter(`Auth: Se inicio la sesión de manera correcta`, result);
     }
 }

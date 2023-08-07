@@ -8,7 +8,7 @@ export interface RoleRepository {
     createRole(roleModel: RoleModel): Promise<RoleModel>;
     updateRole(roleId: number, roleModel: RoleModel): Promise<boolean>;
     deleteRole(roleId: number): Promise<boolean>;
-    readAll(): Promise<RoleModel[]>;
+    readAllRoles(): Promise<RoleModel[]>;
     readRoleById(roleId: number): Promise<RoleModel>;
 
     // Common

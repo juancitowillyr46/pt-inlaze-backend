@@ -10,13 +10,14 @@ import { JwtStrategy } from './common/strategies/jwt.strategy';
 
 @Module({
   imports: [
-    UsersModule,
-    RolesModule,
-    AuthModule,
     TypeOrmConfigModule,
     EnvironmentConfigModule,
     BcryptModule,
-    ExceptionsModule
+    ExceptionsModule,
+
+    UsersModule,
+    RolesModule,
+    AuthModule
   ],
   controllers: [],
   providers: [JwtStrategy],
