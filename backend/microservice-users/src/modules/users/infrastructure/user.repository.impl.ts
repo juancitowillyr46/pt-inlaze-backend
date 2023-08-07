@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserDto } from "src/modules/users/application/user.dto";
-import { BaseRepository } from "src/modules/users/domain/base.repository.abstract";
+import { BaseRepository } from "src/config/abstracts/base.repository.abstract";
 import { RoleEntity } from "src/modules/roles/domain/role.entity";
 import { UserEntity } from "src/modules/users/domain/user.entity";
 import { UserModel } from "src/modules/users/domain/user.model";
