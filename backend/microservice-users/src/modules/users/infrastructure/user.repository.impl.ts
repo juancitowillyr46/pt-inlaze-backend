@@ -77,7 +77,7 @@ export class UserRepositoryImpl extends BaseRepository<UserEntity, UserModel> im
         model.email = userEntity.email;
         model.phone = userEntity.phone;
         model.password = userEntity.password;
-        model.roleId = userEntity.role.id;
+        model.roleId = userEntity.role?.id;
         return model;
     }
 

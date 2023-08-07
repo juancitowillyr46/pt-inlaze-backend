@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Param, Post, Put, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Param, Post, Put, UsePipes, UseGuards } from "@nestjs/common";
 import { UserDto } from "../application/user.dto";
 import { UserService } from "../application/user.service";
 import { JoiValidationPipe } from "src/common/pipes/joi-validation.pipe";
 import { userSchema } from "../application/user.schema";
-import { ApiExtraModels, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiExtraModels, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { UserPresenter } from "./user.presenter";
+import { JwtAuthGuard } from "src/common/guards/jwtAuth.guard";
 
 @Controller('users')
 export class UserController {
@@ -20,6 +21,8 @@ export class UserController {
         return new UserPresenter(`Usuario: Creado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(UserPresenter)
     @ApiOperation({ summary: 'User Update '})
     @ApiTags('Users')
@@ -29,6 +32,8 @@ export class UserController {
         return new UserPresenter(`Usuario: Actualizado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(UserPresenter)
     @ApiOperation({ summary: 'User Delete'})
     @ApiTags('Users')

@@ -1,16 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { JoiValidationPipe } from "src/common/pipes/joi-validation.pipe";
-import { ApiExtraModels, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiExtraModels, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { RolePresenter } from "./role.presenter";
 import { RoleService } from "../application/role.service";
 import { RoleDto } from "../application/role.dto";
 import { roleSchema } from "../application/role.schema";
+import { JwtAuthGuard } from "src/common/guards/jwtAuth.guard";
 
 @Controller('roles')
 export class RoleController {
     constructor(private readonly roleService: RoleService) {
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Create' })
     @ApiTags('roles')
@@ -20,6 +23,8 @@ export class RoleController {
         return new RolePresenter(`Role: Creado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Update '})
     @ApiTags('roles')
@@ -29,6 +34,8 @@ export class RoleController {
         return new RolePresenter(`Role: Actualizado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Role Delete'})
     @ApiTags('roles')
@@ -38,6 +45,8 @@ export class RoleController {
         return new RolePresenter(`Role: Eliminado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Roles All'})
     @ApiTags('roles')
@@ -47,6 +56,8 @@ export class RoleController {
         return new RolePresenter(`Role: listado correctamente`, result);
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @ApiExtraModels(RolePresenter)
     @ApiOperation({ summary: 'Roles By Id'})
     @ApiTags('roles')

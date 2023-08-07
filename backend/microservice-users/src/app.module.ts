@@ -6,6 +6,7 @@ import { ExceptionsModule } from './infraestructure/exceptions/exceptions.module
 import { AuthModule } from './modules/auth/auth.module';
 import { EnvironmentConfigModule } from './infraestructure/config/environment-config/environment-config.module';
 import { RolesModule } from './modules/roles/roles.modules';
+import { JwtStrategy } from './common/strategies/jwt.strategy';
 
 @Module({
   imports: [
@@ -18,6 +19,6 @@ import { RolesModule } from './modules/roles/roles.modules';
     ExceptionsModule
   ],
   controllers: [],
-  providers: [],
+  providers: [JwtStrategy],
 })
 export class AppModule {}

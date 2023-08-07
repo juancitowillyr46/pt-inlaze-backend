@@ -18,6 +18,9 @@ import { EnvironmentConfigModule } from "src/infraestructure/config/environment-
   controllers: [AuthController],
   providers: [
     AuthService
+  ],
+  exports: [
+    AuthService
   ]
 })
 export class AuthModule {}

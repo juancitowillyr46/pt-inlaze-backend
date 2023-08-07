@@ -54,4 +54,11 @@ export class AuthService {
         return model;
     }
 
+    async validateUser(username: string): Promise<boolean> {
+        const userModel = await this.userRepository.readByUsername(username);
+        const authModel = new AuthModel();
+        authModel.fullname = userModel.fullname;
+        return (userModel)? true : false;
+    }
+
 }
