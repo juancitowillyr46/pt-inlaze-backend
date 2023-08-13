@@ -7,7 +7,7 @@ import { AuthService } from "../../application/services/auth.service";
 import { authSchema } from "../../domain/schema/auth.schema";
 
 @Controller('auth')
-export class AuthController {
+export class HttpAuthController {
     constructor(private readonly authService: AuthService) {
     }
 

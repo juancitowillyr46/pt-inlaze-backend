@@ -44,4 +44,10 @@ export class UserService {
         const cryptPassword = this.bcryptService.hash(password);  
         return cryptPassword; 
     }
+
+    handleUserCreated(data: any) {
+        console.log('handlerUserCreated - USERS', data);
+        // TODO: Email the user...
+        return data;
+    }
 }

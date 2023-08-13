@@ -61,13 +61,13 @@ export class UserRepositoryImpl extends BaseRepository<UserEntity, UserModel> im
         return commandFind;
     }
 
-    async readByUsername(email: string): Promise<UserModel> {
+    async readByUsername(email: string): Promise<UserModel | null> {
 
         const commmand = await this.userRepository.findOne({
             where: { email : email }
         });
 
-        return this.toModel(commmand);
+        return (commmand)? this.toModel(commmand) : commmand;
     }
 
     toModel(userEntity: UserEntity): UserModel {

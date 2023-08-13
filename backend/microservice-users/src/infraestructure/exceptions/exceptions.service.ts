@@ -1,5 +1,7 @@
 import { BadRequestException, ForbiddenException, Injectable, InternalServerErrorException, UnauthorizedException } from "@nestjs/common";
+import { RpcException } from "@nestjs/microservices";
 import { IException, IFormatExceptionMessage } from "src/config/interfaces/exceptions/exceptions.interface";
+import { TcpEventException } from "./tcp-exception.service";
 
   @Injectable()
   export class ExceptionsService implements IException {
@@ -14,6 +16,10 @@ import { IException, IFormatExceptionMessage } from "src/config/interfaces/excep
     }
     unauthorizedException(data?: IFormatExceptionMessage): void {
       throw new UnauthorizedException(data);
+    }
+
+    eventPatternException(data?: IFormatExceptionMessage): void {
+      throw new TcpEventException(data);
     }
   }
   

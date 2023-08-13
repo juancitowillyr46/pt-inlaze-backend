@@ -6,6 +6,7 @@ import { userSchema } from "../application/user.schema";
 import { ApiBearerAuth, ApiExtraModels, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { UserPresenter } from "./user.presenter";
 import { JwtAuthGuard } from "src/common/guards/jwtAuth.guard";
+import { EventPattern } from '@nestjs/microservices';
 
 @Controller('users')
 export class UserController {
@@ -42,4 +43,9 @@ export class UserController {
         const result = await this.userService.deleteUser(Number(userId));
         return new UserPresenter(`Usuario: Eliminado correctamente`, result);
     }
+
+    // @EventPattern('user_created')
+    // handleUserCreated() {
+    //     return this.userService.handleUserCreated({message: 'Hello Mundo'});
+    // }
 }
