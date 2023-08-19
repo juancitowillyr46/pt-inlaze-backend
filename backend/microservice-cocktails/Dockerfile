@@ -1,5 +1,5 @@
 # Establece la imagen base
-FROM node:14-alpine
+FROM node:alpine
 
 # Establece el directorio de trabajo
 WORKDIR /app
@@ -12,6 +12,7 @@ RUN npm install
 COPY . .
 
 # Construye la aplicación
+RUN npm cache clean --force
 RUN npm run build
 
 # Expone el puerto en el que escucha la aplicación NestJS

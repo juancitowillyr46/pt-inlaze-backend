@@ -8,14 +8,22 @@ services:
       - '3000:3000'
     environment:
       - TCP_PORT=3000
+      - PORT=3000
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
+      - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=db_cocktails
+      - DATABASE_NAME=postgres
+      - DATABASE_SCHEMA=public
+      - DATABASE_SYNCHRONIZE=false
+      - JWT_SECRET=74YLbq4%c!wU
+      - JWT_EXPIRATION_TIME=1h
+      - USING_MICROSERVICE=false
     depends_on:
       - microservice-users
       - microservice-cocktails
+    links:
+      - postgres:postgres
   microservice-users:
     build:
       context: ./microservice-users
@@ -26,9 +34,16 @@ services:
       - TCP_PORT=3001
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
+      - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=db_cocktails
+      - DATABASE_NAME=postgres
+      - DATABASE_SCHEMA=public
+      - DATABASE_SYNCHRONIZE=false
+      - JWT_SECRET=74YLbq4%c!wU
+      - JWT_EXPIRATION_TIME=1h
+      - USING_MICROSERVICE=false
+    links:
+      - postgres:postgres
   microservice-cocktails:
     build:
       context: ./microservice-cocktails
@@ -39,18 +54,34 @@ services:
       - microservice-users
     environment:
       - TCP_PORT=3002
+      - PORT=3002
       - DATABASE_HOST=postgres
       - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
+      - DATABASE_USER=postgres
       - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=db_cocktails
+      - DATABASE_NAME=postgres
+      - DATABASE_SCHEMA=public
+      - DATABASE_SYNCHRONIZE=false
+      - JWT_SECRET=74YLbq4%c!wU
+      - JWT_EXPIRATION_TIME=1h
+      - USING_MICROSERVICE=false
+    links:
+      - postgres:postgres
   postgres:
     image: postgres:latest
+    restart: always
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: db_cocktails
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: postgres
+    ports:
+      - "5437:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
 volumes:
   postgres_data:
+    driver: local
+
+# networks:
+#    nest-init:
